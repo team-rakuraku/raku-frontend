@@ -1,5 +1,6 @@
 import 'auth_bloc.dart';
 import 'auth_event.dart';
+import 'model/user_params.dart';
 
 final class RakuChatSDK {
   final AuthBloc _authBloc;
@@ -9,26 +10,12 @@ final class RakuChatSDK {
   void login({
     required String accessToken,
     required String appId,
-    required _UserParams userParams,
+    required UserParams userParams,
   }) {
     _authBloc.add(AuthEvent.login(
       accessToken: accessToken,
       appId: appId,
-      userId: userParams.userId,
-      nickname: userParams.nickname,
-      profileImageUrl: userParams.profileImageUrl,
+      userParams: userParams,
     ));
   }
-}
-
-final class _UserParams {
-  final String userId;
-  final String nickname;
-  final String profileImageUrl;
-
-  _UserParams({
-    required this.userId,
-    required this.nickname,
-    required this.profileImageUrl,
-  });
 }
