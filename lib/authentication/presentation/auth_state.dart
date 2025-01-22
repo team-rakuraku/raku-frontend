@@ -1,25 +1,12 @@
-import '../domain/user_entity.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import '../domain/entity/user_entity.dart';
 
-abstract interface class AuthState {
-  const AuthState();
-}
+part 'auth_state.freezed.dart';
 
-class InitialAuthState extends AuthState {
-  const InitialAuthState();
-}
-
-class LoadingAuthState extends AuthState {
-  const LoadingAuthState();
-}
-
-class LoggedInAuthState extends AuthState {
-  final User user;
-
-  const LoggedInAuthState(this.user);
-}
-
-class ErrorAuthState extends AuthState {
-  final String message;
-
-  const ErrorAuthState(this.message);
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState.initial() = InitialAuthState;
+  const factory AuthState.loading() = LoadingAuthState;
+  const factory AuthState.loggedIn(User user) = LoggedInAuthState;
+  const factory AuthState.error(String message) = ErrorAuthState;
 }
