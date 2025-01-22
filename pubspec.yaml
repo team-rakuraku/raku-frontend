@@ -36,6 +36,7 @@ dependencies:
   json_annotation: ^4.9.0
   http: ^1.2.2
   mockito: ^5.4.5
+  json_serializable: ^6.9.3
 
 
 dev_dependencies:
