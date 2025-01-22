@@ -1,11 +1,16 @@
+import '../di_container.dart';
 import 'auth_bloc.dart';
 import 'auth_event.dart';
 import 'model/user_params.dart';
 
 final class RakuChatSDK {
-  final AuthBloc _authBloc;
+  late final AuthBloc _authBloc;
 
-  RakuChatSDK(this._authBloc);
+  RakuChatSDK.initialize() {
+    initializeSDKDependencies();
+    final di = DIContainer();
+    _authBloc = di.resolve<AuthBloc>();
+  }
 
   void login({
     required String accessToken,
