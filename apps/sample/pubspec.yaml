@@ -1,0 +1,15 @@
+name: sample
+description: Sample app for testing chat SDK & UI
+publish_to: none
+version: 0.0.1
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  chat_sdk:
+    path: ../../packages/chat_sdk
+  chat_ui:
+    path: ../../packages/chat_ui
+

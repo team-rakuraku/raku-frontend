@@ -1,0 +1,4 @@
+name: raku_frontend
+packages:
+  - apps/**
+  - packages/**

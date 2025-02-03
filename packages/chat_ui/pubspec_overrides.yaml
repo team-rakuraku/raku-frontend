@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: chat_sdk
+dependency_overrides:
+  chat_sdk:
+    path: ../chat_sdk
