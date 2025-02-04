@@ -1,9 +1,8 @@
+import 'package:chat_sdk/authentication/presentation/auth_bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:rakuraku/authentication/presentation/auth_bloc.dart';
 
-import '../services/api_service.dart';
-import 'data/gateway/api_endpoint.dart';
-import 'data/gateway/login_gateway.dart';
+import '../services/remote/http_transport.dart';
+import 'data/remote/login_remote_service.dart';
 import 'domain/data_interfaces/login_repository_interface.dart';
 import 'domain/usecases/auth_uscease.dart';
 
@@ -36,11 +35,10 @@ class DIContainer {
 void initializeSDKDependencies() {
   final di = DIContainer();
 
-  di.register<ApiService>(() => ApiService(
-        Dio(),
-        baseUrl: ApiEndpoint.baseUrl.path,
-      ));
-  di.register<LoginGatewayInterface>(() => LoginGateway(apiService: di.resolve<ApiService>()));
-  di.register<AuthUseCase>(() => AuthUseCase(loginGateway: di.resolve<LoginGateway>()));
+  di.register<HttpTransport>(() => HttpTransport(Dio()));
+  di.register<ILoginRemoteService>(
+      () => LoginRemoteService(di.resolve<HttpTransport>()));
+  di.register<AuthUseCase>(
+      () => AuthUseCase(loginRemoteService: di.resolve<ILoginRemoteService>()));
   di.register<AuthBloc>(() => AuthBloc(authUseCase: di.resolve<AuthUseCase>()));
 }

@@ -14,6 +14,7 @@ final class LoginDto {
     required this.profileImageUrl,
   });
 
-  factory LoginDto.fromJson(Map<String, dynamic> json) => _$LoginDtoFromJson(json);
+  factory LoginDto.fromJson(Map<String, dynamic> json) =>
+      _$LoginDtoFromJson(json);
   Map<String, dynamic> toJson() => _$LoginDtoToJson(this);
 }

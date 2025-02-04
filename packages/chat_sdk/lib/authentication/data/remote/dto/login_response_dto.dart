@@ -16,6 +16,7 @@ final class LoginResponseDto {
     required this.expiresAt,
   });
 
-  factory LoginResponseDto.fromJson(Map<String, dynamic> json) => _$LoginResponseDtoFromJson(json);
+  factory LoginResponseDto.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseDtoFromJson(json);
   Map<String, dynamic> toJson() => _$LoginResponseDtoToJson(this);
 }
