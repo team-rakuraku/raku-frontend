@@ -12,4 +12,5 @@ dependencies:
     path: ../../packages/chat_sdk
   chat_ui:
     path: ../../packages/chat_ui
+  dart_jsonwebtoken: ^2.17.0
 
