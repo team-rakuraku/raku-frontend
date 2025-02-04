@@ -21,7 +21,7 @@ mixin _$AuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(User user) loggedIn,
-    required TResult Function(String message) error,
+    required TResult Function(Failure failure) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$AuthState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(User user)? loggedIn,
-    TResult? Function(String message)? error,
+    TResult? Function(Failure failure)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$AuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(User user)? loggedIn,
-    TResult Function(String message)? error,
+    TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -132,7 +132,7 @@ class _$InitialAuthStateImpl implements InitialAuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(User user) loggedIn,
-    required TResult Function(String message) error,
+    required TResult Function(Failure failure) error,
   }) {
     return initial();
   }
@@ -143,7 +143,7 @@ class _$InitialAuthStateImpl implements InitialAuthState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(User user)? loggedIn,
-    TResult? Function(String message)? error,
+    TResult? Function(Failure failure)? error,
   }) {
     return initial?.call();
   }
@@ -154,7 +154,7 @@ class _$InitialAuthStateImpl implements InitialAuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(User user)? loggedIn,
-    TResult Function(String message)? error,
+    TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -249,7 +249,7 @@ class _$LoadingAuthStateImpl implements LoadingAuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(User user) loggedIn,
-    required TResult Function(String message) error,
+    required TResult Function(Failure failure) error,
   }) {
     return loading();
   }
@@ -260,7 +260,7 @@ class _$LoadingAuthStateImpl implements LoadingAuthState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(User user)? loggedIn,
-    TResult? Function(String message)? error,
+    TResult? Function(Failure failure)? error,
   }) {
     return loading?.call();
   }
@@ -271,7 +271,7 @@ class _$LoadingAuthStateImpl implements LoadingAuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(User user)? loggedIn,
-    TResult Function(String message)? error,
+    TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -394,7 +394,7 @@ class _$LoggedInAuthStateImpl implements LoggedInAuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(User user) loggedIn,
-    required TResult Function(String message) error,
+    required TResult Function(Failure failure) error,
   }) {
     return loggedIn(user);
   }
@@ -405,7 +405,7 @@ class _$LoggedInAuthStateImpl implements LoggedInAuthState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(User user)? loggedIn,
-    TResult? Function(String message)? error,
+    TResult? Function(Failure failure)? error,
   }) {
     return loggedIn?.call(user);
   }
@@ -416,7 +416,7 @@ class _$LoggedInAuthStateImpl implements LoggedInAuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(User user)? loggedIn,
-    TResult Function(String message)? error,
+    TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
     if (loggedIn != null) {
@@ -481,7 +481,7 @@ abstract class _$$ErrorAuthStateImplCopyWith<$Res> {
           $Res Function(_$ErrorAuthStateImpl) then) =
       __$$ErrorAuthStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String message});
+  $Res call({Failure failure});
 }
 
 /// @nodoc
@@ -497,13 +497,13 @@ class __$$ErrorAuthStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? failure = null,
   }) {
     return _then(_$ErrorAuthStateImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == failure
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as Failure,
     ));
   }
 }
@@ -511,14 +511,14 @@ class __$$ErrorAuthStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorAuthStateImpl implements ErrorAuthState {
-  const _$ErrorAuthStateImpl(this.message);
+  const _$ErrorAuthStateImpl(this.failure);
 
   @override
-  final String message;
+  final Failure failure;
 
   @override
   String toString() {
-    return 'AuthState.error(message: $message)';
+    return 'AuthState.error(failure: $failure)';
   }
 
   @override
@@ -526,11 +526,11 @@ class _$ErrorAuthStateImpl implements ErrorAuthState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorAuthStateImpl &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, failure);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -547,9 +547,9 @@ class _$ErrorAuthStateImpl implements ErrorAuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(User user) loggedIn,
-    required TResult Function(String message) error,
+    required TResult Function(Failure failure) error,
   }) {
-    return error(message);
+    return error(failure);
   }
 
   @override
@@ -558,9 +558,9 @@ class _$ErrorAuthStateImpl implements ErrorAuthState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(User user)? loggedIn,
-    TResult? Function(String message)? error,
+    TResult? Function(Failure failure)? error,
   }) {
-    return error?.call(message);
+    return error?.call(failure);
   }
 
   @override
@@ -569,11 +569,11 @@ class _$ErrorAuthStateImpl implements ErrorAuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(User user)? loggedIn,
-    TResult Function(String message)? error,
+    TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message);
+      return error(failure);
     }
     return orElse();
   }
@@ -617,9 +617,9 @@ class _$ErrorAuthStateImpl implements ErrorAuthState {
 }
 
 abstract class ErrorAuthState implements AuthState {
-  const factory ErrorAuthState(final String message) = _$ErrorAuthStateImpl;
+  const factory ErrorAuthState(final Failure failure) = _$ErrorAuthStateImpl;
 
-  String get message;
+  Failure get failure;
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.

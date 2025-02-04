@@ -1,5 +1,5 @@
-name: rakuraku
-description: "rakuraku"
+name: chat_sdk
+description: "chat SDK package for RakuChat"
 publish_to: 'none'
 
 version: 1.0.0+1

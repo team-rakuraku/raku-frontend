@@ -25,10 +25,12 @@ final class AuthBloc extends Bloc<AuthEvent, AuthState> {
       appId: event.appId,
     );
 
-    final result = await _authUseCase.performLogin(user: user).run();
+    final result = await _authUseCase
+        .performLogin(user, event.accessToken, event.appId)
+        .run();
 
     result.match(
-      (failure) => emit(AuthState.error(failure.userFriendlyMessage)),
+      (failure) => emit(AuthState.error(failure)),
       (loggedInUser) => emit(AuthState.loggedIn(loggedInUser)),
     );
   }
