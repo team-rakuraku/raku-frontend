@@ -34,7 +34,6 @@ class DIContainer {
 
 void initializeSDKDependencies() {
   final di = DIContainer();
-
   di.register<HttpTransport>(() => HttpTransport(Dio()));
   di.register<ILoginRemoteService>(
       () => LoginRemoteService(di.resolve<HttpTransport>()));
