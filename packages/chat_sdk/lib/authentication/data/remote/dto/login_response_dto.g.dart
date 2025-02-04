@@ -9,13 +9,15 @@ part of 'login_response_dto.dart';
 LoginResponseDto _$LoginResponseDtoFromJson(Map<String, dynamic> json) =>
     LoginResponseDto(
       status: json['status'] as String,
+      message: json['message'] as String,
       userId: json['userId'] as String,
-      expiresAt: json['expiresAt'] as String,
+      expiresAt: DateTime.parse(json['expiresAt'] as String),
     );
 
 Map<String, dynamic> _$LoginResponseDtoToJson(LoginResponseDto instance) =>
     <String, dynamic>{
       'status': instance.status,
+      'message': instance.message,
       'userId': instance.userId,
-      'expiresAt': instance.expiresAt,
+      'expiresAt': instance.expiresAt.toIso8601String(),
     };

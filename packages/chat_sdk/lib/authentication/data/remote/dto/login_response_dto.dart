@@ -3,19 +3,19 @@ import 'package:json_annotation/json_annotation.dart';
 part 'login_response_dto.g.dart';
 
 @JsonSerializable()
-class LoginResponseDto {
+final class LoginResponseDto {
   final String status;
+  final String message;
   final String userId;
-  final String expiresAt;
+  final DateTime expiresAt;
 
-  LoginResponseDto({
+  const LoginResponseDto({
     required this.status,
+    required this.message,
     required this.userId,
     required this.expiresAt,
   });
 
-  factory LoginResponseDto.fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseDtoFromJson(json);
-
+  factory LoginResponseDto.fromJson(Map<String, dynamic> json) => _$LoginResponseDtoFromJson(json);
   Map<String, dynamic> toJson() => _$LoginResponseDtoToJson(this);
 }
