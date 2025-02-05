@@ -37,6 +37,7 @@ dependencies:
   http: ^1.2.2
   mockito: ^5.4.5
   json_serializable: ^6.9.3
+  stomp_dart_client: ^2.1.2
 
 
 dev_dependencies:
