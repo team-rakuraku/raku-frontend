@@ -1,7 +1,7 @@
 import 'package:chat_sdk/services/remote/request_builder.dart';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
-import '../../types/failure.dart';
+import '../../../types/failure.dart';
 
 abstract interface class HttpTransportInterface {
   TaskEither<Failure, Response> sendRequest(Request request);

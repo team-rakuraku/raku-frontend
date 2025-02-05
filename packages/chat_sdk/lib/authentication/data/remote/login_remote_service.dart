@@ -5,7 +5,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../services/remote/request_builder.dart';
 import '../../../services/remote/response_parser.dart';
-import '../../../services/remote/http_transport.dart';
+import '../../../services/remote/transport/http_transport.dart';
 import '../../../types/failure.dart';
 import '../../domain/data_interfaces/login_repository_interface.dart';
 import 'dto/login_dto.dart';

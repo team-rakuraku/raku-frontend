@@ -82,11 +82,9 @@ extension ParseWithStatusCode<T> on ResponseParser<T> {
 
   Either<Failure, _ResponseWrapper<List<T>>> parseListDioResponse(
           Response response) =>
-      _validateStatus(response)
-          .flatMap((res) => parseListResponse(res.data).map(
-                (parsedList) => _ResponseWrapper(
-                    data: parsedList.data, headers: parsedList.headers),
-              ));
+      _validateStatus(response).flatMap((res) => parseListResponse(res.data)
+          .map((parsedList) => _ResponseWrapper(
+              data: parsedList.data, headers: parsedList.headers)));
 
   Either<Failure, Response> _validateStatus(Response response) =>
       Either.fromPredicate(
