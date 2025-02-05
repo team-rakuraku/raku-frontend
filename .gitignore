@@ -29,3 +29,13 @@ migrate_working_dir/
 .flutter-plugins
 .flutter-plugins-dependencies
 build/
+
+# Flutter Code Generation 관련 파일
+**/*.g.dart
+**/*.freezed.dart
+**/*.mocks.dart
+**/*.config.dart
+**/*.gr.dart
+**/*.drift.dart
+**/*.floor.dart
+**/*.riverpod.g.dart
