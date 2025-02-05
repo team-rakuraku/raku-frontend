@@ -1,10 +1,10 @@
 import 'package:chat_sdk/authentication/presentation/auth_bloc.dart';
 import 'package:dio/dio.dart';
 
-import '../services/remote/transport/http_transport.dart';
-import 'data/remote/login_remote_service.dart';
-import 'domain/data_interfaces/login_repository_interface.dart';
-import 'domain/usecases/auth_uscease.dart';
+import 'services/remote/transport/http_transport.dart';
+import 'authentication/data/remote/login_remote_service.dart';
+import 'authentication/domain/data_interfaces/login_repository_interface.dart';
+import 'authentication/domain/usecases/auth_uscease.dart';
 
 class DIContainer {
   DIContainer._();

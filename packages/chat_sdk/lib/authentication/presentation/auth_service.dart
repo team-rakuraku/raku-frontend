@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:fpdart/fpdart.dart';
 import '../../types/failure.dart';
-import '../di_container.dart';
+import '../../di_container.dart';
 import 'auth_bloc.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';

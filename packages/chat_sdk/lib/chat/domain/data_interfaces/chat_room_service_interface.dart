@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../types/failure.dart';
-import '../../data/remote/dto/chat_message.dart';
+import '../../../types/failure.dart';
+import '../../data/remote/dto/chat_message_dto.dart';
 
 abstract interface class IChatRemoteService {
   TaskEither<Failure, Unit> connect();
@@ -11,10 +11,10 @@ abstract interface class IChatRemoteService {
   TaskEither<Failure, Unit> sendChatMessage({
     required String roomId,
     required String accessToken,
-    required ChatMessage message,
+    required ChatMessageDto message,
   });
 
-  TaskEither<Failure, Stream<ChatMessage>> subscribeToChatMessages({
+  TaskEither<Failure, Stream<ChatMessageDto>> subscribeToChatMessages({
     required String roomId,
   });
 }
