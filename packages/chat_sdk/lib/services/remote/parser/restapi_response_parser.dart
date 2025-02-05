@@ -1,36 +1,36 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../types/failure.dart';
+import '../../../types/failure.dart';
 
-final class _ResponseWrapper<T> {
+final class _RestAPIResponseWrapper<T> {
   final T data;
   final Map<String, String> headers;
 
-  const _ResponseWrapper({
+  const _RestAPIResponseWrapper({
     required this.data,
     this.headers = const {},
   });
 }
 
-final class ResponseParser<T> {
+final class RestAPIResponseParser<T> {
   final T Function(Map<String, dynamic>) parse;
   final Map<String, String> Function(Map<String, dynamic>)? headerParser;
 
-  const ResponseParser({
+  const RestAPIResponseParser({
     required this.parse,
     this.headerParser,
   });
 
-  Either<Failure, _ResponseWrapper<T>> parseResponse(Object? rawData) =>
-      _toMap(rawData).flatMap(_safeParse).map((parsedData) => _ResponseWrapper(
+  Either<Failure, _RestAPIResponseWrapper<T>> parseResponse(Object? rawData) =>
+      _toMap(rawData).flatMap(_safeParse).map((parsedData) => _RestAPIResponseWrapper(
           data: parsedData,
           headers: _parseHeaders(rawData as Map<String, dynamic>)));
 
-  Either<Failure, _ResponseWrapper<List<T>>> parseListResponse(
+  Either<Failure, _RestAPIResponseWrapper<List<T>>> parseListResponse(
           Object? rawData) =>
       _toMap(rawData).flatMap(_extractList).flatMap(_parseAll).map(
-          (listOfModels) => _ResponseWrapper(
+          (listOfModels) => _RestAPIResponseWrapper(
               data: listOfModels,
               headers: _parseHeaders(rawData as Map<String, dynamic>)));
 
@@ -73,17 +73,17 @@ final class ResponseParser<T> {
       headerParser?.call(rawData) ?? const {};
 }
 
-extension ParseWithStatusCode<T> on ResponseParser<T> {
-  Either<Failure, _ResponseWrapper<T>> parseDioResponse(Response response) =>
+extension ParseWithStatusCode<T> on RestAPIResponseParser<T> {
+  Either<Failure, _RestAPIResponseWrapper<T>> parseDioResponse(Response response) =>
       _validateStatus(response).flatMap((res) => parseResponse(res.data).map(
             (parsed) =>
-                _ResponseWrapper(data: parsed.data, headers: parsed.headers),
+                _RestAPIResponseWrapper(data: parsed.data, headers: parsed.headers),
           ));
 
-  Either<Failure, _ResponseWrapper<List<T>>> parseListDioResponse(
+  Either<Failure, _RestAPIResponseWrapper<List<T>>> parseListDioResponse(
           Response response) =>
       _validateStatus(response).flatMap((res) => parseListResponse(res.data)
-          .map((parsedList) => _ResponseWrapper(
+          .map((parsedList) => _RestAPIResponseWrapper(
               data: parsedList.data, headers: parsedList.headers)));
 
   Either<Failure, Response> _validateStatus(Response response) =>

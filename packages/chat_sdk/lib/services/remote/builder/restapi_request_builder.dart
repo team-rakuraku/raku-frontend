@@ -2,14 +2,14 @@ import 'package:fpdart/fpdart.dart';
 
 enum HttpMethod { get, post, put, delete, patch }
 
-final class Request {
+final class RestAPIRequest {
   final String url;
   final Map<String, dynamic> queryParameters;
   final Map<String, String> headers;
   final Option<String> body;
   final HttpMethod method;
 
-  const Request({
+  const RestAPIRequest({
     required this.url,
     this.queryParameters = const {},
     this.headers = const {},
@@ -23,7 +23,7 @@ final class Request {
       .toString();
 }
 
-final class RequestBuilder {
+final class RestAPIRequestBuilder {
   final String baseUrl;
   final Option<String> endpoint;
   final Map<String, dynamic> queryParameters;
@@ -31,7 +31,7 @@ final class RequestBuilder {
   final Option<String> body;
   final Option<HttpMethod> method;
 
-  const RequestBuilder({
+  const RestAPIRequestBuilder({
     required this.baseUrl,
     this.endpoint = const None(),
     this.queryParameters = const {},
@@ -40,7 +40,7 @@ final class RequestBuilder {
     this.method = const None(),
   });
 
-  RequestBuilder setMethod(HttpMethod method) => RequestBuilder(
+  RestAPIRequestBuilder setMethod(HttpMethod method) => RestAPIRequestBuilder(
         baseUrl: baseUrl,
         endpoint: endpoint,
         queryParameters: queryParameters,
@@ -49,7 +49,7 @@ final class RequestBuilder {
         method: Some(method),
       );
 
-  RequestBuilder setEndpoint(String endpoint) => RequestBuilder(
+  RestAPIRequestBuilder setEndpoint(String endpoint) => RestAPIRequestBuilder(
         baseUrl: baseUrl,
         endpoint: Some(endpoint),
         queryParameters: queryParameters,
@@ -58,7 +58,7 @@ final class RequestBuilder {
         method: method,
       );
 
-  RequestBuilder addQueryParameter(String key, dynamic value) => RequestBuilder(
+  RestAPIRequestBuilder addQueryParameter(String key, dynamic value) => RestAPIRequestBuilder(
         baseUrl: baseUrl,
         endpoint: endpoint,
         queryParameters: {...queryParameters, key: value},
@@ -67,7 +67,7 @@ final class RequestBuilder {
         method: method,
       );
 
-  RequestBuilder addHeader(String key, String value) => RequestBuilder(
+  RestAPIRequestBuilder addHeader(String key, String value) => RestAPIRequestBuilder(
         baseUrl: baseUrl,
         endpoint: endpoint,
         queryParameters: queryParameters,
@@ -76,7 +76,7 @@ final class RequestBuilder {
         method: method,
       );
 
-  RequestBuilder setBody(String jsonBody) => RequestBuilder(
+  RestAPIRequestBuilder setBody(String jsonBody) => RestAPIRequestBuilder(
         baseUrl: baseUrl,
         endpoint: endpoint,
         queryParameters: queryParameters,
@@ -85,13 +85,13 @@ final class RequestBuilder {
         method: method,
       );
 
-  Either<String, Request> build() {
+  Either<String, RestAPIRequest> build() {
     return endpoint.match(
       () => const Left("Endpoint must be provided"),
       (ep) => method.match(
         () => const Left("HTTP method must be provided"),
         (m) => Right(
-          Request(
+          RestAPIRequest(
             url: '$baseUrl/$ep',
             queryParameters: queryParameters,
             headers: headers,

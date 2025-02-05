@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../services/remote/request_builder.dart';
-import '../../../services/remote/response_parser.dart';
+import '../../../services/remote/builder/restapi_request_builder.dart';
+import '../../../services/remote/parser/restapi_response_parser.dart';
 import '../../../services/remote/transport/http_transport.dart';
 import '../../../types/failure.dart';
 import '../../domain/data_interfaces/login_repository_interface.dart';
@@ -13,8 +13,7 @@ import 'dto/login_response_dto.dart';
 
 final class LoginRemoteService implements ILoginRemoteService {
   final HttpTransport _http;
-  final ResponseParser<LoginResponseDto> _parser =
-      ResponseParser(parse: LoginResponseDto.fromJson);
+  final RestAPIResponseParser<LoginResponseDto> _parser = RestAPIResponseParser(parse: LoginResponseDto.fromJson);
 
   LoginRemoteService(this._http);
 
@@ -24,17 +23,13 @@ final class LoginRemoteService implements ILoginRemoteService {
     required String token,
     required String appId,
   }) =>
-      _buildRequest(loginDto, token, appId).match(
-          (failureFromBuilder) => TaskEither.left(failureFromBuilder),
-          (request) => _sendRequest(request));
+      _buildRequest(loginDto, token, appId)
+          .match((failureFromBuilder) => TaskEither.left(failureFromBuilder), (request) => _sendRequest(request));
+}
 
-  // =====================
-  // 내부 헬퍼 메서드들
-  // =====================
-
-  Either<Failure, Request> _buildRequest(
-      LoginDto loginDto, String token, String appId) {
-    return RequestBuilder(baseUrl: "http://localhost:8080")
+extension LoginRemoteServiceHelper on LoginRemoteService {
+  Either<Failure, RestAPIRequest> _buildRequest(LoginDto loginDto, String token, String appId) {
+    return RestAPIRequestBuilder(baseUrl: "http://localhost:8080")
         .setEndpoint("auth/login")
         .setMethod(HttpMethod.post)
         .addHeader("Content-Type", "application/json")
@@ -42,20 +37,14 @@ final class LoginRemoteService implements ILoginRemoteService {
         .addHeader("App-Id", appId)
         .setBody(jsonEncode(loginDto))
         .build()
-        .mapLeft((buildErrorMsg) => Failure(
-              error: 'RequestBuildError',
-              message: buildErrorMsg,
-            ));
+        .mapLeft((buildErrorMsg) => Failure(error: 'RequestBuildError', message: buildErrorMsg));
   }
 
-  TaskEither<Failure, LoginResponseDto> _sendRequest(Request request) {
+  TaskEither<Failure, LoginResponseDto> _sendRequest(RestAPIRequest request) {
     return _http
         .sendRequest(request)
         .mapLeft((transportFailure) => transportFailure.copyWith(
-              error: '네트워크 에러',
-              message: '네트워크 전송 중 오류 발생',
-              cause: transportFailure,
-            ))
+            error: transportFailure.error, message: transportFailure.message, cause: transportFailure))
         .flatMap((response) => _parseResponse(response));
   }
 
@@ -63,10 +52,8 @@ final class LoginRemoteService implements ILoginRemoteService {
     return TaskEither.fromEither(
       _parser
           .parseDioResponse(response)
-          .mapLeft((parserFailure) => parserFailure.copyWith(
-                error: 'ParsingError',
-                message: parserFailure.message,
-              ))
+          .mapLeft((parserFailure) =>
+              parserFailure.copyWith(error: parserFailure.error, message: parserFailure.message, cause: parserFailure))
           .map((resWrapper) => resWrapper.data),
     );
   }

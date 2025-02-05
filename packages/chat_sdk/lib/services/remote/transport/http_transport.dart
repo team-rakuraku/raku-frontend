@@ -1,10 +1,10 @@
-import 'package:chat_sdk/services/remote/request_builder.dart';
+import 'package:chat_sdk/services/remote/builder/restapi_request_builder.dart';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import '../../../types/failure.dart';
 
 abstract interface class HttpTransportInterface {
-  TaskEither<Failure, Response> sendRequest(Request request);
+  TaskEither<Failure, Response> sendRequest(RestAPIRequest request);
 }
 
 final class HttpTransport extends HttpTransportInterface {
@@ -13,7 +13,7 @@ final class HttpTransport extends HttpTransportInterface {
   HttpTransport(this.dio);
 
   @override
-  TaskEither<Failure, Response> sendRequest(Request request) =>
+  TaskEither<Failure, Response> sendRequest(RestAPIRequest request) =>
       TaskEither<Failure, Response>.tryCatch(
         () async => await dio.request(
           request.buildUrl(),
@@ -36,7 +36,7 @@ final class HttpTransport extends HttpTransportInterface {
       };
 
   Failure mapDioExceptionToFailure(
-      Object error, StackTrace stackTrace, Request request) {
+      Object error, StackTrace stackTrace, RestAPIRequest request) {
     if (error is DioException) {
       final statusCode = error.response?.statusCode;
       final responseBody = error.response?.data;
