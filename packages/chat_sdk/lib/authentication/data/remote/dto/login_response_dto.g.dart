@@ -11,6 +11,9 @@ LoginResponseDto _$LoginResponseDtoFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String,
       userId: json['userId'] as String,
       expiresAt: json['expiresAt'] as String,
+      message: json['message'] as String,
+      userId: _userIdFromJson(json['userId']),
+      expiresAt: DateTime.parse(json['expiresAt'] as String),
     );
 
 Map<String, dynamic> _$LoginResponseDtoToJson(LoginResponseDto instance) =>
@@ -18,4 +21,7 @@ Map<String, dynamic> _$LoginResponseDtoToJson(LoginResponseDto instance) =>
       'status': instance.status,
       'userId': instance.userId,
       'expiresAt': instance.expiresAt,
+      'message': instance.message,
+      'userId': _userIdToJson(instance.userId),
+      'expiresAt': instance.expiresAt.toIso8601String(),
     };

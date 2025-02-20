@@ -2,9 +2,14 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'login_response_dto.g.dart';
 
+String _userIdFromJson(dynamic json) => json.toString();
+dynamic _userIdToJson(String userId) => userId;
+
 @JsonSerializable()
 class LoginResponseDto {
   final String status;
+  final String message;
+  @JsonKey(fromJson: _userIdFromJson, toJson: _userIdToJson)
   final String userId;
   final String expiresAt;
 
