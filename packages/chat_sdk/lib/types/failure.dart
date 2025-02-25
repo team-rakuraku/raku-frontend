@@ -1,8 +1,8 @@
 final class Failure {
-  final Object error; // 실제 발생한 예외 객체
-  final String? message; // 사람이 읽을 수 있는 오류 설명
-  final StackTrace? stackTrace; // 오류 발생 지점 추적
-  final Failure? cause; // 이전 단계(래핑 전) Failure
+  final Object error;
+  final String? message;
+  final StackTrace? stackTrace;
+  final Failure? cause;
 
   const Failure({
     required this.error,
@@ -40,18 +40,4 @@ final class Failure {
       cause: cause ?? this.cause,
     );
   }
-}
-
-Failure buildFailure({
-  required Object error,
-  required StackTrace stackTrace,
-  String? message,
-  Failure? cause,
-}) {
-  return Failure(
-    error: error,
-    stackTrace: stackTrace,
-    message: message,
-    cause: cause,
-  );
 }
