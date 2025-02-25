@@ -1,42 +1,78 @@
-import 'package:chat_sdk/services/remote/builder/restapi_request_builder.dart';
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:fpdart/fpdart.dart';
-import '../../../types/failure.dart';
+import 'package:chat_sdk/types/failure.dart';
 
 abstract interface class HttpTransportInterface {
-  TaskEither<Failure, Response> sendRequest(RestAPIRequest request);
+  TaskEither<Failure, Response> get(String url, Map<String, String> headers, {String? body});
+  TaskEither<Failure, Response> post(String url, Map<String, String> headers, {String? body});
+  TaskEither<Failure, Response> put(String url, Map<String, String> headers, {String? body});
+  TaskEither<Failure, Response> delete(String url, Map<String, String> headers);
+  TaskEither<Failure, Response> patch(String url, Map<String, String> headers, {String? body});
 }
 
 final class HttpTransport extends HttpTransportInterface {
   final Dio dio;
 
-  HttpTransport(this.dio);
+  HttpTransport(this.dio) {
+    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (client) {
+      client.badCertificateCallback = (cert, host, port) => true;
+      return client;
+    };
+  }
 
   @override
-  TaskEither<Failure, Response> sendRequest(RestAPIRequest request) =>
-      TaskEither<Failure, Response>.tryCatch(
-        () async => await dio.request(
-          request.buildUrl(),
-          data: request.body.toNullable(),
-          options: Options(
-            method: _httpMethodToString(request.method),
-            headers: request.headers,
-          ),
-        ),
-        (error, stackTrace) =>
-            mapDioExceptionToFailure(error, stackTrace, request),
-      );
+  TaskEither<Failure, Response> get(String url, Map<String, String> headers, {String? body}) {
+    return _sendRequest(url, headers, (url, options) =>
+        dio.get(url, options: options));
+  }
 
-  String _httpMethodToString(HttpMethod method) => switch (method) {
-        HttpMethod.get => 'GET',
-        HttpMethod.post => 'POST',
-        HttpMethod.put => 'PUT',
-        HttpMethod.delete => 'DELETE',
-        HttpMethod.patch => 'PATCH',
-      };
+  @override
+  TaskEither<Failure, Response> post(String url, Map<String, String> headers, {String? body}) {
+    return _sendRequest(url, headers, (url, options) =>
+        dio.post(url, options: options, data: body));
+  }
 
-  Failure mapDioExceptionToFailure(
-      Object error, StackTrace stackTrace, RestAPIRequest request) {
+  @override
+  TaskEither<Failure, Response> put(String url, Map<String, String> headers, {String? body}) {
+    return _sendRequest(url, headers, (url, options) =>
+        dio.put(url, options: options, data: body));
+  }
+
+  @override
+  TaskEither<Failure, Response> delete(String url, Map<String, String> headers) {
+    return _sendRequest(url, headers, (url, options) =>
+        dio.delete(url, options: options));
+  }
+
+  @override
+  TaskEither<Failure, Response> patch(String url, Map<String, String> headers, {String? body}) {
+    return _sendRequest(url, headers, (url, options) =>
+        dio.patch(url, options: options, data: body));
+  }
+
+  TaskEither<Failure, Response> _sendRequest(
+      String url,
+      Map<String, String> headers,
+      Future<Response> Function(String, Options) dioCall,
+      ) {
+    return TaskEither<Failure, Response>.tryCatch(
+          () async {
+        final options = Options(
+          headers: headers,
+        );
+
+        return await dioCall(url, options);
+      },
+          (error, stackTrace) {
+        return error is Failure
+            ? error
+            : mapDioExceptionToFailure(error, stackTrace, url);
+      },
+    );
+  }
+
+  Failure mapDioExceptionToFailure(Object error, StackTrace stackTrace, String url) {
     if (error is DioException) {
       final statusCode = error.response?.statusCode;
       final responseBody = error.response?.data;
@@ -52,18 +88,17 @@ final class HttpTransport extends HttpTransportInterface {
         DioExceptionType.unknown => '알 수 없는 오류 발생',
       };
 
-      return buildFailure(
+      return Failure(
         error: error,
         stackTrace: stackTrace,
         message: '''$message
-        [URL]: ${request.buildUrl()}
-        [Method]: ${_httpMethodToString(request.method)}
-        ${statusCode != null ? "[Status Code]: $statusCode" : ""}
-        ${responseBody != null ? "[Response]: $responseBody" : ""}
+        [URL]: $url
+        [Status Code]: ${statusCode ?? "N/A"}
+        [Response]: ${responseBody ?? "N/A"}
         ''',
       );
     } else {
-      return buildFailure(
+      return Failure(
         error: error,
         stackTrace: stackTrace,
         message: '알 수 없는 오류 발생',
