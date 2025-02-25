@@ -13,4 +13,18 @@ dependencies:
   chat_ui:
     path: ../../packages/chat_ui
   dart_jsonwebtoken: ^2.17.0
+  flutter_launcher_icons: ^0.14.3
 
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/gallery.svg
+    - assets/icons/send.svg
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/appstore.png"
+  adaptive_icon_background: "assets/playstore.png"
+  adaptive_icon_foreground: "assets/playstore.png"
