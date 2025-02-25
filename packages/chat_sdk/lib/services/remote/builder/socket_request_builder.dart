@@ -1,56 +1,44 @@
 import 'dart:convert';
-import 'package:fpdart/fpdart.dart';
-import 'package:stomp_dart_client/stomp_dart_client.dart';
 
-import '../../../types/failure.dart';
+final class SocketMessageBuilder {
+  final Map<String, dynamic> _message = {};
 
-final class SocketResponseWrapper<T> {
-  final T data;
-  final Map<String, String> headers;
-
-  const SocketResponseWrapper({
-    required this.data,
-    this.headers = const {},
-  });
-}
-
-final class SocketResponseParser<T> {
-  final T Function(Map<String, dynamic>) parse;
-  final Map<String, String> Function(Map<String, dynamic>)? headerParser;
-
-  const SocketResponseParser({
-    required this.parse,
-    this.headerParser,
-  });
-
-  /// StompFrame 의 body를 JSON으로 파싱하여 도메인 모델로 변환
-  Either<Failure, SocketResponseWrapper<T>> parseFrame(StompFrame frame) {
-    try {
-      if (frame.body == null || frame.body!.isEmpty) {
-        return Left(buildFailure(
-          error: Exception('응답 본문이 비어 있습니다.'),
-          stackTrace: StackTrace.current,
-          message: '소켓 응답 파싱 실패: 본문이 비어 있습니다.',
-        ));
-      }
-
-      final Map<String, dynamic> json = jsonDecode(frame.body!);
-
-      final T parsedData = parse(json);
-
-      // 헤더 파싱 (옵션)
-      final headers = headerParser?.call(json) ?? frame.headers;
-
-      return Right(SocketResponseWrapper(
-        data: parsedData,
-        headers: headers,
-      ));
-    } catch (error, stackTrace) {
-      return Left(buildFailure(
-        error: error,
-        stackTrace: stackTrace,
-        message: '소켓 응답 파싱 중 오류 발생',
-      ));
-    }
+  /// ✅ 앱 ID 설정
+  SocketMessageBuilder appId(String appId) {
+    _message["appId"] = appId;
+    return this;
   }
+
+  /// ✅ 채팅방 ID 설정
+  SocketMessageBuilder roomId(String roomId) {
+    _message["roomId"] = roomId;
+    return this;
+  }
+
+  /// ✅ 사용자 ID 설정
+  SocketMessageBuilder usersId(String usersId) {
+    _message["usersId"] = usersId;
+    return this;
+  }
+
+  /// ✅ 메시지 내용 설정
+  SocketMessageBuilder content(String content) {
+    _message["content"] = content;
+    return this;
+  }
+
+  /// ✅ 클라우드 이미지 URL 설정
+  SocketMessageBuilder cloudFrontImageURL(String url) {
+    _message["cloudFrontImageURL"] = url;
+    return this;
+  }
+
+  /// ✅ 메시지 타입 설정 (기본값: `CHAT`)
+  SocketMessageBuilder type([String type = "CHAT"]) {
+    _message["type"] = type;
+    return this;
+  }
+
+  /// ✅ 최종 JSON 문자열 반환
+  String build() => jsonEncode(_message);
 }
