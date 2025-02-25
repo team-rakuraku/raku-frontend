@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../services/remote/builder/restapi_request_builder.dart';
@@ -22,39 +23,45 @@ final class LoginRemoteService implements ILoginRemoteService {
     required LoginDto loginDto,
     required String token,
     required String appId,
-  }) =>
-      _buildRequest(loginDto, token, appId)
-          .match((failureFromBuilder) => TaskEither.left(failureFromBuilder), (request) => _sendRequest(request));
+  }) {
+    final requestBuilder = _buildRequest(loginDto, token, appId);
+
+    return requestBuilder.fold(
+          (failure) => TaskEither.left(failure),
+          (request) => _sendRequest(request),
+    );
+  }
 }
 
 extension LoginRemoteServiceHelper on LoginRemoteService {
-  Either<Failure, RestAPIRequest> _buildRequest(LoginDto loginDto, String token, String appId) {
-    return RestAPIRequestBuilder(baseUrl: "http://localhost:8080")
-        .setEndpoint("auth/login")
-        .setMethod(HttpMethod.post)
-        .addHeader("Content-Type", "application/json")
-        .addHeader("Authorization", token)
-        .addHeader("App-Id", appId)
-        .setBody(jsonEncode(loginDto))
-        .build()
-        .mapLeft((buildErrorMsg) => Failure(error: 'RequestBuildError', message: buildErrorMsg));
+  Either<Failure, RestAPIRequestBuilder> _buildRequest(LoginDto loginDto, String token, String appId) {
+    return Either.right(
+      RestAPIRequestBuilder(baseUrl: "http://acec93397c45740cd91228806400ad86-1631035604.ap-northeast-2.elb.amazonaws.com:4000")
+          .setEndpoint("auth/login")
+          .addHeader("Content-Type", "application/json")
+          .addHeader("Authorization", token)
+          .addHeader("App-Id", appId)
+          .setBody(jsonEncode(loginDto)),
+    );
   }
 
-  TaskEither<Failure, LoginResponseDto> _sendRequest(RestAPIRequest request) {
-    return _http
-        .sendRequest(request)
-        .mapLeft((transportFailure) => transportFailure.copyWith(
-            error: transportFailure.error, message: transportFailure.message, cause: transportFailure))
-        .flatMap((response) => _parseResponse(response));
+  TaskEither<Failure, LoginResponseDto> _sendRequest(RestAPIRequestBuilder request) {
+    final url = request.getUrl();
+    final headers = request.buildHeaders();
+    final body = request.body.getOrElse(() => "null");
+
+    return _http.post(url, headers, body: body).flatMap((response) {
+      debugPrint("Response status: ${response.statusCode}");
+      debugPrint("Response data: ${response.data}");
+      return _parseResponse(response);
+    }).mapLeft((failure) => failure.copyWith(message: '로그인 요청 실패: ${failure.message}'));
   }
 
   TaskEither<Failure, LoginResponseDto> _parseResponse(Response response) {
     return TaskEither.fromEither(
-      _parser
-          .parseDioResponse(response)
-          .mapLeft((parserFailure) =>
-              parserFailure.copyWith(error: parserFailure.error, message: parserFailure.message, cause: parserFailure))
-          .map((resWrapper) => resWrapper.data),
+      _parser.parseDioResponse(response).map(
+            (resWrapper) => resWrapper.data,
+      ),
     );
   }
 }
