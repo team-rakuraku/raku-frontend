@@ -18,24 +18,21 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthEvent {
   String get accessToken => throw _privateConstructorUsedError;
   String get appId => throw _privateConstructorUsedError;
-  UserParams get userParams => throw _privateConstructorUsedError;
+  User get user => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String accessToken, String appId, UserParams userParams)
+    required TResult Function(String accessToken, String appId, User user)
         login,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String accessToken, String appId, UserParams userParams)?
-        login,
+    TResult? Function(String accessToken, String appId, User user)? login,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String accessToken, String appId, UserParams userParams)?
-        login,
+    TResult Function(String accessToken, String appId, User user)? login,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -68,7 +65,7 @@ abstract class $AuthEventCopyWith<$Res> {
   factory $AuthEventCopyWith(AuthEvent value, $Res Function(AuthEvent) then) =
       _$AuthEventCopyWithImpl<$Res, AuthEvent>;
   @useResult
-  $Res call({String accessToken, String appId, UserParams userParams});
+  $Res call({String accessToken, String appId, User user});
 }
 
 /// @nodoc
@@ -88,7 +85,7 @@ class _$AuthEventCopyWithImpl<$Res, $Val extends AuthEvent>
   $Res call({
     Object? accessToken = null,
     Object? appId = null,
-    Object? userParams = null,
+    Object? user = null,
   }) {
     return _then(_value.copyWith(
       accessToken: null == accessToken
@@ -99,10 +96,10 @@ class _$AuthEventCopyWithImpl<$Res, $Val extends AuthEvent>
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
               as String,
-      userParams: null == userParams
-          ? _value.userParams
-          : userParams // ignore: cast_nullable_to_non_nullable
-              as UserParams,
+      user: null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ) as $Val);
   }
 }
@@ -115,7 +112,7 @@ abstract class _$$LoginAuthEventImplCopyWith<$Res>
       __$$LoginAuthEventImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String accessToken, String appId, UserParams userParams});
+  $Res call({String accessToken, String appId, User user});
 }
 
 /// @nodoc
@@ -133,7 +130,7 @@ class __$$LoginAuthEventImplCopyWithImpl<$Res>
   $Res call({
     Object? accessToken = null,
     Object? appId = null,
-    Object? userParams = null,
+    Object? user = null,
   }) {
     return _then(_$LoginAuthEventImpl(
       accessToken: null == accessToken
@@ -144,10 +141,10 @@ class __$$LoginAuthEventImplCopyWithImpl<$Res>
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
               as String,
-      userParams: null == userParams
-          ? _value.userParams
-          : userParams // ignore: cast_nullable_to_non_nullable
-              as UserParams,
+      user: null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ));
   }
 }
@@ -156,20 +153,18 @@ class __$$LoginAuthEventImplCopyWithImpl<$Res>
 
 class _$LoginAuthEventImpl implements LoginAuthEvent {
   const _$LoginAuthEventImpl(
-      {required this.accessToken,
-      required this.appId,
-      required this.userParams});
+      {required this.accessToken, required this.appId, required this.user});
 
   @override
   final String accessToken;
   @override
   final String appId;
   @override
-  final UserParams userParams;
+  final User user;
 
   @override
   String toString() {
-    return 'AuthEvent.login(accessToken: $accessToken, appId: $appId, userParams: $userParams)';
+    return 'AuthEvent.login(accessToken: $accessToken, appId: $appId, user: $user)';
   }
 
   @override
@@ -180,12 +175,11 @@ class _$LoginAuthEventImpl implements LoginAuthEvent {
             (identical(other.accessToken, accessToken) ||
                 other.accessToken == accessToken) &&
             (identical(other.appId, appId) || other.appId == appId) &&
-            (identical(other.userParams, userParams) ||
-                other.userParams == userParams));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, appId, userParams);
+  int get hashCode => Object.hash(runtimeType, accessToken, appId, user);
 
   /// Create a copy of AuthEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -199,31 +193,28 @@ class _$LoginAuthEventImpl implements LoginAuthEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String accessToken, String appId, UserParams userParams)
+    required TResult Function(String accessToken, String appId, User user)
         login,
   }) {
-    return login(accessToken, appId, userParams);
+    return login(accessToken, appId, user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String accessToken, String appId, UserParams userParams)?
-        login,
+    TResult? Function(String accessToken, String appId, User user)? login,
   }) {
-    return login?.call(accessToken, appId, userParams);
+    return login?.call(accessToken, appId, user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String accessToken, String appId, UserParams userParams)?
-        login,
+    TResult Function(String accessToken, String appId, User user)? login,
     required TResult orElse(),
   }) {
     if (login != null) {
-      return login(accessToken, appId, userParams);
+      return login(accessToken, appId, user);
     }
     return orElse();
   }
@@ -261,14 +252,14 @@ abstract class LoginAuthEvent implements AuthEvent {
   const factory LoginAuthEvent(
       {required final String accessToken,
       required final String appId,
-      required final UserParams userParams}) = _$LoginAuthEventImpl;
+      required final User user}) = _$LoginAuthEventImpl;
 
   @override
   String get accessToken;
   @override
   String get appId;
   @override
-  UserParams get userParams;
+  User get user;
 
   /// Create a copy of AuthEvent
   /// with the given fields replaced by the non-null parameter values.

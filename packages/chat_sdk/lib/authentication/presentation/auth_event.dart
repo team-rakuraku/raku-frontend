@@ -1,14 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'model/user_params.dart';
+import '../domain/entity/user_entity.dart';
 
 part 'auth_event.freezed.dart';
 
-// AuthEvent 정의
 @freezed
 class AuthEvent with _$AuthEvent {
   const factory AuthEvent.login({
     required String accessToken,
     required String appId,
-    required UserParams userParams,
+    required User user,
   }) = LoginAuthEvent;
 }

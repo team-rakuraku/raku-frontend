@@ -18,16 +18,14 @@ final class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const AuthState.loading());
 
     final user = User(
-      userId: event.userParams.userId,
-      nickname: event.userParams.nickname,
-      profileImageUrl: event.userParams.profileImageUrl,
+      userId: event.user.userId,
+      nickname: event.user.nickname,
+      profileImageUrl: event.user.profileImageUrl,
       accessToken: event.accessToken,
       appId: event.appId,
     );
 
-    final result = await _authUseCase
-        .performLogin(user, event.accessToken, event.appId)
-        .run();
+    final result = await _authUseCase.performLogin(user, event.accessToken, event.appId).run();
 
     result.match(
       (failure) => emit(AuthState.error(failure)),
