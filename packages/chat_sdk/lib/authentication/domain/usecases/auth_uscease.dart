@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../types/failure.dart';
@@ -16,37 +17,46 @@ final class AuthUseCase {
       User user, String accessToken, String appId) {
     return _createRequest(user)
         .mapLeft(
-          (createReqFailure) => buildFailure(
-            error: Exception("AuthUseCase: Create request failed"),
-            stackTrace: StackTrace.current,
-            message: "유저 정보가 비어있습니다",
-            cause: createReqFailure,
-          ),
-        )
+          (createReqFailure) {
+        debugPrint("[AuthUseCase] Request 생성 실패: ${createReqFailure.message}");
+        return Failure (
+          error: Exception("AuthUseCase: Create request failed"),
+          stackTrace: StackTrace.current,
+          message: "유저 정보가 비어있습니다",
+          cause: createReqFailure,
+        );
+      },
+    )
         .flatMap(
           (requestDto) => _loginRemoteService
-              .login(
-                loginDto: requestDto,
-                token: accessToken,
-                appId: appId,
-              )
-              .mapLeft(
-                (loginFailure) => buildFailure(
-                  error: Exception("AuthUseCase: Login failed"),
-                  stackTrace: StackTrace.current,
-                  message: "로그인 중 오류가 발생했습니다.",
-                  cause: loginFailure,
-                ),
-              ),
-        )
+          .login(
+        loginDto: requestDto,
+        token: accessToken,
+        appId: appId,
+      )
+          .mapLeft(
+            (loginFailure) {
+          debugPrint("[AuthUseCase] 로그인 요청 실패: ${loginFailure.message}");
+          return Failure (
+            error: Exception("AuthUseCase: Login failed"),
+            stackTrace: StackTrace.current,
+            message: "로그인 중 오류가 발생했습니다.",
+            cause: loginFailure,
+          );
+        },
+      ),
+    )
         .map(
-            (response) => _mapToEntity(response, user.accessToken, user.appId));
+            (response) {
+          debugPrint("[AuthUseCase] 로그인 성공: userId=${response.userId}");
+          return _mapToEntity(response, user.accessToken, user.appId);
+        });
   }
 
   TaskEither<Failure, LoginDto> _createRequest(User user) {
     if (user.userId.isEmpty) {
       return TaskEither.left(
-        buildFailure(
+        Failure (
           error: Exception("Invalid user ID"),
           stackTrace: StackTrace.current,
           message: "User ID cannot be empty",
