@@ -1,54 +1,30 @@
-import 'dart:convert';
 import 'package:fpdart/fpdart.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
+import 'dart:convert';
 
 import '../../../types/failure.dart';
 
-final class SocketResponseWrapper<T> {
-  final T data;
-  final Map<String, String> headers;
-
-  const SocketResponseWrapper({
-    required this.data,
-    this.headers = const {},
-  });
-}
-
 final class SocketResponseParser<T> {
   final T Function(Map<String, dynamic>) parse;
-  final Map<String, String> Function(Map<String, dynamic>)? headerParser;
 
-  const SocketResponseParser({
-    required this.parse,
-    this.headerParser,
-  });
+  const SocketResponseParser({required this.parse});
 
-  /// StompFrame 의 body를 JSON으로 파싱하여 도메인 모델로 변환합니다.
-  Either<Failure, SocketResponseWrapper<T>> parseFrame(StompFrame frame) {
+  Either<Failure, T> parseFrame(StompFrame frame) {
     try {
       if (frame.body == null || frame.body!.isEmpty) {
-        return Left(buildFailure(
+        return Left(Failure(
           error: Exception('응답 본문이 비어 있습니다.'),
           stackTrace: StackTrace.current,
           message: '소켓 응답 파싱 실패: 본문이 비어 있습니다.',
         ));
       }
 
-      // JSON 파싱 (서버에서 JSON 형식으로 응답한다고 가정)
       final Map<String, dynamic> json = jsonDecode(frame.body!);
-
-      // 실제 파싱 함수 호출
       final T parsedData = parse(json);
 
-      // 헤더 파싱 (옵션)
-      final headers = headerParser?.call(json) ?? frame.headers;
-
-      return Right(SocketResponseWrapper(
-        data: parsedData,
-        headers: headers,
-      ));
+      return Right(parsedData);
     } catch (error, stackTrace) {
-      return Left(buildFailure(
+      return Left(Failure(
         error: error,
         stackTrace: stackTrace,
         message: '소켓 응답 파싱 중 오류 발생',
