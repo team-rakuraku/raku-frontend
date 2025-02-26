@@ -16,7 +16,7 @@
 <br/>
 
 
-## Front Architecture
+## Frontend Architecture
 
 
 ### Modular Architecture (Melos Package 사용)
