@@ -5,13 +5,13 @@
 <br/>
 <br/>
 
-##  Tech Stack
 
-| Category   | Tech Stack |
-|------------|------------------------------------------------------------------|
-| **Frontend**  | ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white) |
-| **Backend**   | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white) |
-| **Infra**     | ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white) |
+## 스크린샷
+
+
+| **메인 채팅 리스트 화면** | **채팅방 목록 화면** | **이미지 전송** | **채팅방 만들기 화면** | **이미지 선택 화면** |
+|----------------|----------------|----------------|----------------|----------------|
+| <img src="https://github.com/user-attachments/assets/48fc5f5a-0396-4e31-8b77-2cd33c9a64a0" width="150"/> | <img src="https://github.com/user-attachments/assets/b35e51aa-b88f-452a-b5ae-189e7c421f51" width="150"/> | <img src="https://github.com/user-attachments/assets/788f0e7f-ef1b-4de7-baec-0c646b21e7ff" width="150"/> | <img src="https://github.com/user-attachments/assets/ef962e64-d499-459f-8e95-dc9fe8cb3d61" width="150"/> | <img src="https://github.com/user-attachments/assets/757e678c-cddb-491b-acd1-ce657c454d58" width="150"/> |
 
 <br/>
 
@@ -19,7 +19,7 @@
 ## Front Architecture
 
 
-### Melos를 이용한 Modular Architecture
+### Modular Architecture (Melos Package 사용)
 
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/e1194131-bb07-4250-8f85-eb1e127bc597" />
 
@@ -32,6 +32,7 @@
 <br/>
 
 ### ChatUI Architecture
+
 
 
 
@@ -50,13 +51,6 @@
 | **chat_ui**  | <img src="https://github.com/user-attachments/assets/38e7c0f5-74e9-4134-b78e-cb112178f9e2" width="250"/> |
 | **chat_sdk**  | <img src="https://github.com/user-attachments/assets/3e2ee8d8-b729-4fa9-b7be-941874290f88" width="250"/> <br> <img src="https://github.com/user-attachments/assets/1082160f-a597-4ef1-920f-59a66b9b4cb7" width="250"/> |
 
-
-<br/>
-
-## 스크린샷
-
-Testflight에 샘플앱 배포, 발표회 당일 아이폰 미러링을 통해 직접 시연하는 방식으로 진행 <br/>
-현재 인프라 유지 비용으로 인해 서버는 내려간 상태입니다.
 
 
 
