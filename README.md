@@ -23,6 +23,17 @@
 
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/e1194131-bb07-4250-8f85-eb1e127bc597" />
 
+<br/>
+
+### ChatSDK Architecture
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/620cb9b9-4511-42de-b588-a4e6b9a0d56a" />
+
+<br/>
+
+### ChatUI Architecture
+
+
 
 
 
