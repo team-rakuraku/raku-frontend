@@ -27,27 +27,21 @@
 
 ### ChatSDK(Raku Domain) Architecture
 
+<img width="200" alt="image" src="https://github.com/user-attachments/assets/7b26cfbb-fd77-46a8-b1ad-ff7c6cb29a4f" />
+
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/620cb9b9-4511-42de-b588-a4e6b9a0d56a" />
 
 <br/>
 
 ### ChatUI(Raku UI) Architecture
 
+<img width="240" alt="image" src="https://github.com/user-attachments/assets/5770f803-ee5d-427a-87fb-48882ce84c03" />
 
 
 <br/>
-
-
-
-
-
-
 <br/>
 
-
-
-### 폴더 구조 
-
+## 폴더 구조 
 
 | Folder  | Screenshot |
 |--------|------------|
