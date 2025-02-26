@@ -21,7 +21,7 @@
 
 ### Modular Architecture (Melos Package 사용)
 
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/e1194131-bb07-4250-8f85-eb1e127bc597" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/fcb6c112-e8b6-48aa-bb97-61cf497c3017" />
 
 <br/>
 
