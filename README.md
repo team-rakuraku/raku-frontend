@@ -25,7 +25,7 @@
 
 <br/>
 
-### ChatSDK Architecture
+### ChatSDK(Raku Domain) Architecture
 
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/620cb9b9-4511-42de-b588-a4e6b9a0d56a" />
 
