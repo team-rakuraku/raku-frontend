@@ -83,7 +83,13 @@
 ### Failure + TaskEither 타입을 활용해 비동기 함수 결과값에 풍부한 의미 담아주기
 
 
+<br/>
+
+### Freezed vs Equatable vs JsonSerializable
+
 
 <br/>
 
 ### Jenkins CI 구축중 발생했던 파일경로 트러블 슈팅
+
+
