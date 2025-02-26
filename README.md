@@ -1,6 +1,6 @@
 ## Raku Chat SDK
 
-<img width="783" alt="image" src="https://github.com/user-attachments/assets/aab13cd9-469e-45b2-bde7-7b7de19ceb15" />
+<img width="864" alt="image" src="https://github.com/user-attachments/assets/7a03cd2d-44ac-43f0-96a3-1e1a61820052" />
 
 <br/>
 <br/>
