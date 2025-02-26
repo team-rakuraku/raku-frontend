@@ -5,6 +5,13 @@
 <br/>
 <br/>
 
+## 프로젝트 일정
+
+2025.01 - 02
+
+[프로젝트 일정링크](https://github.com/orgs/team-rakuraku/projects/1/views/8)
+
+<br/>
 
 ## 스크린샷
 
@@ -54,39 +61,62 @@
 ## 핵심 기술 및 트러블 슈팅
 
 ### Stomp 활용 Web Socket 구현
+- 문제상황:
+- 해결방법:
+- [관련 링크](https://ssuojae.tistory.com/362)
 
 
 <br/>
 
 ### S3 + Cloudfront 활용 미디어 데이터 캐싱전략 적용
-
+- 문제상황:
+- 해결방법:
+- [관련 링크](https://ssuojae.tistory.com/362)
 
 <br/>
 
-
 ### Pagination을 통한 API 통신 비용 절약
-
+- 문제상황:
+- 해결방법:
+- [관련 링크](https://ssuojae.tistory.com/362)
 
 
 <br/>
 
 ### 클린아키텍쳐와 모듈러 아키텍쳐 채택 이유
-
+- 문제상황:
+- 해결방법:
+- [관련 링크](https://ssuojae.tistory.com/362)
 
 
 <br/>
 
 
 ### Failure + TaskEither 타입을 활용해 비동기 함수 결과값에 풍부한 의미 담아주기
+- 문제상황:
+- 해결방법:
+- [관련 링크](https://ssuojae.tistory.com/362)
+
 
 
 <br/>
 
 ### Freezed vs Equatable vs JsonSerializable
+- 문제상황:
+- 해결방법:
+- [관련 링크](https://ssuojae.tistory.com/362)
 
 
 <br/>
 
 ### Jenkins CI 구축중 발생했던 파일경로 트러블 슈팅
+- 문제상황:
+- 해결방법:
+- [트러블 슈팅 링크](https://ssuojae.tistory.com/362)
+
+<br/>
+
+
+
 
 
