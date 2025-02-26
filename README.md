@@ -21,7 +21,7 @@
 
 ### Melos를 이용한 Modular Architecture
 
-
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/e1194131-bb07-4250-8f85-eb1e127bc597" />
 
 
 
