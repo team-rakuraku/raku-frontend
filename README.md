@@ -32,19 +32,12 @@
 
 ### 폴더 구조 
 
-chat ui
 
-<img width="357" alt="image" src="https://github.com/user-attachments/assets/38e7c0f5-74e9-4134-b78e-cb112178f9e2" />
-
-
-chat sdk 
-
-<img width="350" alt="image" src="https://github.com/user-attachments/assets/3e2ee8d8-b729-4fa9-b7be-941874290f88" />
-
-<img width="357" alt="image" src="https://github.com/user-attachments/assets/1082160f-a597-4ef1-920f-59a66b9b4cb7" />
-
-Sample 
-<img width="319" alt="image" src="https://github.com/user-attachments/assets/160474ef-2b80-4671-9ea0-51fd74344e00" />
+| Folder  | Screenshot |
+|--------|------------|
+| **sample**  | <img src="https://github.com/user-attachments/assets/160474ef-2b80-4671-9ea0-51fd74344e00" width="250"/> |
+| **chat_ui**  | <img src="https://github.com/user-attachments/assets/38e7c0f5-74e9-4134-b78e-cb112178f9e2" width="250"/> |
+| **chat_sdk**  | <img src="https://github.com/user-attachments/assets/3e2ee8d8-b729-4fa9-b7be-941874290f88" width="250"/> <br> <img src="https://github.com/user-attachments/assets/1082160f-a597-4ef1-920f-59a66b9b4cb7" width="250"/> |
 
 
 <br/>
