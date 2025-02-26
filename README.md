@@ -7,9 +7,7 @@
 
 ## 프로젝트 일정
 
-2025.01 - 02
-
-[프로젝트 일정링크](https://github.com/orgs/team-rakuraku/projects/1/views/8)
+[프로젝트 일정링크](https://github.com/orgs/team-rakuraku/projects/1/views/8) | 2025.01 - 02
 
 <br/>
 
