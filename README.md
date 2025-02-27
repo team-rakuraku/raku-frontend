@@ -59,17 +59,20 @@
 ## 핵심 기술 및 트러블 슈팅
 
 ### Stomp 활용 Web Socket 구현
-- 문제상황:
-- 해결방법:
-- [관련 링크](https://ssuojae.tistory.com/362)
+- **문제상황**<br/>일반 WebSocket은 단순한 양방향 통신만 제공하고 메시지 순서를 보장하지 않았습니다. 또한 클라이언트가 직접 메시지를 브로드캐스트하거나 관리해야 하므로 구현이 복잡해지는 상황이었습니다. <br/><br/>
+- **해결방법**<br/>STOMP 프로토콜을 사용하여 메시지를 Publish/Subscribe 모델로 처리함과 동시에 메시지 큐가 적용되어 순서를 보장하고 구현을 단순화했습니다. <br/><br/>
+- **내용정리 링크**
+  - [Flutter에서 Stomp로 소켓통신하기](https://ssuojae.tistory.com/382)
+  - [오토스케일링 되는 과정에서 소켓 커넥션을 유지하기 위한 고민](https://ssuojae.tistory.com/366)
 
 
+<br/>
 <br/>
 
 ### S3 + Cloudfront 활용 미디어 데이터 캐싱전략 적용
 - 문제상황:
 - 해결방법:
-- [관련 링크](https://ssuojae.tistory.com/362)
+- [관련 링크](https://ssuojae.tistory.com/380)
 
 <br/>
 
