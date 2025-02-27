@@ -133,7 +133,7 @@
 - **문제상황**<br/>  
   Flutter 프로젝트의 `develop` 브랜치에서 매일 새벽 5시에 단위 테스트를 실행하기 위해 EC2에 Docker 기반으로 Jenkins를 배포했습니다. 그러나, Docker 컨테이너 내부에서 Flutter 및 Android SDK를 인식하지 못해 빌드가 실패했습니다. Jenkins 컨테이너가 격리된 환경에서 실행되므로, EC2 로컬에 설치된 Flutter 및 Android SDK 경로를 찾을 수 없었고, 환경 변수 또한 제대로 로드되지 않는 문제가 있었습니다. <br/><br/> 
 - **해결방법**<br/>  
-  Jenkins Docker 컨테이너가 EC2 로컬의 Flutter 및 Android SDK를 인식할 수 있도록 **볼륨 마운트(Bind Mount)**를 설정했습니다.  
+  Jenkins Docker 컨테이너가 EC2 로컬의 Flutter 및 Android SDK를 인식할 수 있도록 **볼륨 마운트(Bind Mount)** 를 설정했습니다.  
   1. Docker 실행 시 `-v` 옵션을 사용하여 EC2의 `/home/ec2-user/flutter` 및 `/home/ec2-user/android-sdk`를 Jenkins 컨테이너 내부로 마운트.  
   2. Jenkins Pipeline에서 `environment` 블록을 활용하여 Flutter 및 Android SDK 경로를 `PATH` 환경 변수에 추가.  
   3. Jenkins 컨테이너가 해당 디렉토리에 접근할 수 있도록 `chown -R 1000:1000`으로 권한 설정.  
